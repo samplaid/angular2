@@ -2,6 +2,15 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'my-app',
-  template: `<h1>Hello {{name}}</h1>`,
+  templateUrl: 'app/hello-world.html',
+  styleUrls  : ['app/hello-world.css']
+
 })
-export class AppComponent  { name = 'Angular'; }
+ 
+export class AppComponent {
+	name = 'Angular';
+	
+	doLogin(event) {
+		console.log("login");
+	}
+}

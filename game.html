@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="formCtrl">
+	<br /><br />
+	<form class="form-horizontal" ng-show="logged===false">
+	  <div class="form-group">
+		<label class="control-label col-sm-2" for="login">Login:</label>
+		<div class="col-sm-8">
+		  <input type="login" class="form-control" ng-model="login" ng-init="login=''" placeholder="Entrez le login">
+		</div>
+	  </div>
+	  <div class="form-group">
+		<label class="control-label col-sm-2" for="pwd">Mot de passe:</label>
+		<div class="col-sm-8"> 
+		  <input type="password" class="form-control" ng-model="pwd" ng-init="pwd=''" placeholder="Entrez le mot de passe">
+		</div>
+	  </div>
+	  <div class="form-group"> 
+		<div class="col-sm-offset-2 col-sm-10">
+		  <button type="submit" class="btn btn-default" ng-click="doLogin()">Submit</button>
+		</div>
+	  </div>
+	</form>
+
+	<form class="form-horizontal" ng-show="logged===true && evasionIsOk===false">
+	  <div class="form-group">
+		<label class="control-label col-sm-2" for="evasion">Combien pèse le poids de l'évasion:</label>
+		<div class="col-sm-8">
+		  <input type="evasion" class="form-control" ng-model="evasion" ng-init="evasion=0" placeholder="Entrez le poids">
+		</div>
+	  </div>
+	  <div class="form-group"> 
+		<div class="col-sm-offset-2 col-sm-10">
+		  <button type="submit" class="btn btn-default" ng-click="doEvade()">Submit</button>
+		</div>
+	  </div>
+	</form>
+
+	<form class="form-horizontal" ng-show="logged===true && evasionIsOk===true">
+	  <div class="form-group">
+		<label class="control-label col-sm-2" for="evasion">Désactiver le compte à rebours :</label>
+		<div class="col-sm-7">
+		  <input type="checkbox" ng-model="disableCpt" ng-init="disableCpt = true">
+		</div>
+	  </div>
+	  <div class="form-group"> 
+		<div class="col-sm-offset-2 col-sm-10">
+		  <button type="submit" class="btn btn-default" ng-click="disableBombs()">Submit</button>
+		</div>
+	  </div>
+	  <p align="center" ng-bind="message"></p>
+	</form>
+</div>
+
+
+<script>
+var myApp = angular.module('myApp', []);
+
+myApp.controller('formCtrl', ['$scope', function($scope) {
+    $scope.logged = false;
+    $scope.evasionIsOk = false;
+	$scope.message = '';
+
+    $scope.doLogin = function() {
+        $scope.logged = $scope.login === 'Ravachol' && $scope.pwd === 'Kaboum';
+    };
+	
+    $scope.doEvade = function() {
+        $scope.evasionIsOk = $scope.evasion == 100;
+    };
+	
+    $scope.disableBombs = function() {
+        if($scope.disableCpt === true) {
+			$scope.message = 'Bravo vous avez terminé le jeu et vous avez désactivé les bombes';
+		} else {
+			$scope.message = 'Bravo vous avez terminé le jeu... Heuresement que ce n\'était pas de vraies bombes!';
+		}
+    };
+	
+}]);
+</script>
+</body>
+</html>
